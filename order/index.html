@@ -170,8 +170,9 @@
     <p class="addr">89 High St, Bedford MK40 1NE</p>
 
     <div class="alt">
-      <p>Got a minute? Tell us about your order.</p>
-      <a class="btn btn-outline" id="reviewBtn" href="../?src=menu">Leave a review</a>
+      <p>Got a minute? Rate your order.</p>
+      <div class="stars" id="stars" role="radiogroup" aria-label="Rating from 1 to 5 stars"></div>
+      <p class="hint" id="hint" aria-live="polite"></p>
     </div>
   </section>
 </main>
@@ -189,7 +190,37 @@
     if (window.plausible) window.plausible(event, { props: { src: "menu" } });
   }
   document.getElementById("orderBtn").addEventListener("click", () => track("order_click"));
-  document.getElementById("reviewBtn").addEventListener("click", () => track("review_click"));
+
+  // Same stars as the review page; a tap hands the rating over so the customer lands on the right step.
+  const hints = ["", "Not great…", "Could be better", "Alright", "Proper good!", "Banging!"];
+  const STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17.2l-5.9 3.2 1.3-6.5L2.5 9.4l6.6-.8z"/></svg>';
+  const stars = document.getElementById("stars");
+  let chosen = 0;
+  const paint = n => {
+    stars.querySelectorAll(".star").forEach(s => s.classList.toggle("on", +s.dataset.n <= n));
+    document.getElementById("hint").textContent = hints[n];
+  };
+  for (let n = 1; n <= 5; n++) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "star";
+    b.dataset.n = n;
+    b.setAttribute("role", "radio");
+    b.setAttribute("aria-checked", "false");
+    b.setAttribute("aria-label", `${n} star${n > 1 ? "s" : ""}`);
+    b.innerHTML = STAR;
+    b.addEventListener("mouseenter", () => paint(n));
+    b.addEventListener("focus", () => paint(n));
+    b.addEventListener("click", () => {
+      if (chosen) return;
+      chosen = n;
+      paint(n);
+      track("review_click");
+      setTimeout(() => { location.href = `../?src=menu&stars=${n}`; }, 300);
+    });
+    stars.appendChild(b);
+  }
+  stars.addEventListener("mouseleave", () => paint(chosen));
   track("menu_scan");
 })();
 </script>

@@ -388,6 +388,14 @@
   $("altGoogle").addEventListener("click", () => track("google_from_feedback", { stars: rating }));
   applyLang();
   track("scan");
+
+  // A rating chosen on the /order page arrives as ?stars=N; continue straight from it.
+  const preset = +params.get("stars");
+  if (preset >= 1 && preset <= 5) {
+    params.delete("stars");
+    history.replaceState(null, "", location.pathname + (params.toString() ? "?" + params : ""));
+    choose(preset);
+  }
 })();
 </script>
 </body>
