@@ -299,7 +299,7 @@
 
   function track(event, props) {
     // Hook for cookieless analytics (Plausible / Umami / Cloudflare). No-op if none is loaded.
-    if (window.plausible) window.plausible(event, { props: { loc: locKey, ...props } });
+    if (window.plausible) window.plausible(event, { props: { loc: locKey, src: params.get("src") || "instore", ...props } });
   }
 
   function choose(n) {
@@ -350,6 +350,7 @@
           subject: `${"★".repeat(rating)}${"☆".repeat(5 - rating)} Side Street ${loc.name} — customer feedback`,
           from_name: "Side Street Reviews",
           restaurant: `Side Street ${loc.name}`,
+          source: params.get("src") === "menu" ? "Delivery menu QR" : "In-store QR",
           rating: `${rating}/5`,
           message: f.message.value.trim(),
           name: f.name.value.trim() || "—",

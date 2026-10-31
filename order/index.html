@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="noindex">
+<title>Side Street Bedford — Order direct</title>
+<link rel="icon" href="../assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Rubik+Dirt&family=Allison&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #feda4d;
+    --yellow-dark: #f2c814;
+    --black: #000000;
+    --panel: #121212;
+    --line: #2c2c2c;
+    --text: #ffffff;
+    --muted: #b9b9b9;
+    --radius: 8px;
+    --display: "Rubik Dirt", Impact, sans-serif;
+    --script: "Allison", cursive;
+    --body: "Barlow Condensed", "Arial Narrow", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100dvh;
+    overflow-x: clip;
+    background: var(--black);
+    color: var(--text);
+    font: 500 19px/1.4 var(--body);
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    position: relative;
+    text-align: center;
+    padding: 28px 16px 70px;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.45) 55%, #000 100%),
+      url("../assets/hero.jpg") center 40% / cover no-repeat;
+  }
+  header img { width: min(230px, 64vw); height: auto; display: block; margin: 0 auto 10px; }
+  .loc {
+    font: 700 15px/1 var(--body);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--yellow);
+  }
+  .tag { font: 400 46px/1 var(--script); color: #fff; margin-top: 6px; }
+
+  .ribbon {
+    background: var(--yellow); color: var(--black);
+    padding: 10px 0 8px;
+    overflow: hidden; white-space: nowrap;
+  }
+  .ribbon div {
+    display: inline-block; animation: mq 30s linear infinite;
+    font: 700 17px var(--body); text-transform: uppercase; letter-spacing: .06em;
+  }
+  .ribbon span { margin: 0 14px; }
+  @keyframes mq { to { transform: translateX(-50%); } }
+
+  main {
+    flex: 1;
+    width: 100%; max-width: 460px;
+    margin: -40px auto 0; padding: 0 16px 32px;
+    position: relative;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--yellow);
+    border-radius: var(--radius);
+    box-shadow: 0 14px 40px rgba(0,0,0,.6);
+    padding: 28px 22px;
+    text-align: center;
+  }
+  h1 {
+    font: 400 32px/1.05 var(--display);
+    text-transform: uppercase;
+    margin: 0 0 10px;
+    color: #fff;
+  }
+  h1 em { font-style: normal; color: var(--yellow); }
+  h1:focus { outline: none; }
+  p.sub { margin: 0 0 22px; color: var(--muted); }
+
+  .stars { display: flex; justify-content: center; gap: 6px; margin: 4px 0 10px; }
+  .star {
+    background: none; border: 0; padding: 4px; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .12s ease;
+  }
+  .star svg { width: 48px; height: 48px; display: block; }
+  .star path { fill: #333; transition: fill .12s ease; }
+  .star.on path { fill: var(--yellow); }
+  .star:active { transform: scale(.9); }
+  .star:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; border-radius: 8px; }
+  .hint { min-height: 1.5em; font: 700 18px/1.4 var(--body); text-transform: uppercase; letter-spacing: .06em; color: var(--yellow); margin: 0; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; min-height: 52px; padding: 14px 18px;
+    border-radius: var(--radius); border: 2px solid var(--yellow);
+    background: var(--yellow); color: var(--black);
+    font: 700 19px/1 var(--body); text-transform: uppercase; letter-spacing: .04em;
+    text-decoration: none; cursor: pointer;
+  }
+  .btn:hover { background: var(--yellow-dark); border-color: var(--yellow-dark); }
+  .btn:disabled { opacity: .6; cursor: wait; }
+  .alt { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); text-align: center; }
+  .alt p { margin: 0 0 10px; color: var(--muted); font-size: 17px; }
+  .btn-outline { background: transparent; color: var(--yellow); border-color: var(--yellow); }
+  .btn + .btn-outline { margin-top: 12px; }
+  .addr { font-size: 16px; color: var(--muted); margin: 14px 0 0; }
+  .btn-outline:hover { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
+
+  form { text-align: left; margin-top: 6px; }
+  label { display: block; font: 700 15px/1.3 var(--body); text-transform: uppercase; letter-spacing: .05em; color: #fff; margin: 16px 0 6px; }
+  textarea, input[type=text], input[type=email], input[type=tel] {
+    width: 100%; font: 500 18px/1.4 var(--body); color: #fff;
+    border: 1.5px solid #3a3a3a; border-radius: var(--radius);
+    padding: 12px 14px; background: #000;
+  }
+  textarea { min-height: 120px; resize: vertical; }
+  textarea:focus, input:focus { outline: none; border-color: var(--yellow); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .row label { margin-top: 0; }
+  .contact-head { margin-top: 18px; font-size: 16px; color: var(--muted); }
+  .hp { position: absolute; left: -9999px; }
+  .privacy { font-size: 14px; color: var(--muted); margin: 14px 0 18px; }
+  .err { color: #ff6b6b; font-size: 16px; margin: 10px 0 0; min-height: 1em; }
+
+  .big-icon { width: 72px; height: 72px; margin: 0 auto 12px; display: block; border-radius: 50%; }
+  [hidden] { display: none !important; }
+  .fade { animation: fade .25s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } }
+
+  footer { text-align: center; font-size: 14px; color: var(--muted); padding: 14px 16px 24px; text-transform: uppercase; letter-spacing: .08em; }
+  footer b { color: var(--yellow); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ribbon div, .fade { animation: none; }
+  }
+  @media (max-width: 360px) {
+    .star svg { width: 40px; height: 40px; }
+    .row { grid-template-columns: 1fr; }
+    h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <img src="../assets/logo.svg" alt="Side Street">
+  <div class="loc">Bedford</div>
+  <div class="tag">#BigFoodBigFlavour</div>
+</header>
+
+<main>
+  <!-- Direct ordering first: this page is for the QR on menus sent out with delivery orders. -->
+  <section class="card fade">
+    <img class="big-icon" src="../assets/icon.png" alt="">
+    <h1>Order direct, <em>save 15%</em></h1>
+    <p class="sub">Click &amp; collect from Side Street Bedford. Our prices are 15% lower when you order direct.</p>
+    <a class="btn" id="orderBtn" href="https://order.toasttab.com/online/side-street-bedford-89-high-street" rel="noopener">Order click &amp; collect</a>
+    <p class="addr">89 High St, Bedford MK40 1NE</p>
+
+    <div class="alt">
+      <p>Got a minute? Tell us about your order.</p>
+      <a class="btn btn-outline" id="reviewBtn" href="../?src=menu">Leave a review</a>
+    </div>
+  </section>
+</main>
+
+<div class="ribbon" aria-hidden="true"><div id="ribbon"></div></div>
+<footer><b>Side Street</b> · Stacked with swagger</footer>
+
+<script>
+(() => {
+  const items = ["Order direct, save 15%", "Click & collect", "Smash burgers", "Nashville chicken", "#BigFoodBigFlavour"];
+  document.getElementById("ribbon").innerHTML = Array(8).fill(items.map(x => `<span>${x}</span>·`).join("")).join("");
+
+  function track(event) {
+    // Hook for cookieless analytics (Plausible / Umami / Cloudflare). No-op if none is loaded.
+    if (window.plausible) window.plausible(event, { props: { src: "menu" } });
+  }
+  document.getElementById("orderBtn").addEventListener("click", () => track("order_click"));
+  document.getElementById("reviewBtn").addEventListener("click", () => track("review_click"));
+  track("menu_scan");
+})();
+</script>
+</body>
+</html>
